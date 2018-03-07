@@ -297,17 +297,23 @@ class DataController extends Controller
 //            ->execute();
         Yii::$app->db->createCommand("UPDATE data SET ucenka = 'Y' WHERE price < minprice")
             ->execute();
-        Yii::$app->db->createCommand("DELETE FROM data WHERE price < 200 AND type != 'silver'")
+        Yii::$app->db->createCommand("DELETE FROM data WHERE price < 200 AND type = 'Tech'")
             ->execute();
         Yii::$app->db->createCommand("DELETE FROM data WHERE price < 300 AND type = 'silver'")
             ->execute();
+        Yii::$app->db->createCommand("DELETE FROM data WHERE price < 800 AND type = 'Gold'")
+            ->execute();
+        Yii::$app->db->createCommand("DELETE FROM data WHERE price < 800 AND type = 'Diamond'")
+            ->execute();
         Yii::$app->db->createCommand("DELETE FROM data WHERE  np_status = 1")
             ->execute();
-        Yii::$app->db->createCommand("DELETE FROM data WHERE  proba < 585 AND type = 'Gold'")
-            ->execute();
+//        Yii::$app->db->createCommand("DELETE FROM data WHERE  proba < 585 AND type = 'Gold'")
+//            ->execute();
 //        Yii::$app->db->createCommand("DELETE FROM data WHERE  proba < 585 AND type = 'Diamond'")
 //            ->execute();
         Yii::$app->db->createCommand("DELETE FROM data WHERE  mvd = 'Y'")
+            ->execute();
+        Yii::$app->db->createCommand("DELETE FROM data WHERE  lo = 900")
             ->execute();
 
 

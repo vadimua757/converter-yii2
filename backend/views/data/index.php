@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
              'ucenka',
             // 'active',
             // 'np_status',
-            // 'mvd:ntext',
+//             'mvd:ntext',
              'defect:ntext',
 
 //            ['class' => 'yii\grid\ActionColumn'],
