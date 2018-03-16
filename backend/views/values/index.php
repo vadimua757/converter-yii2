@@ -133,6 +133,23 @@ $this->params['breadcrumbs'][] = $this->title;
             'attribute'=>'idmodel',
         ],
         [
+            'class'=>'kartik\grid\EditableColumn',
+            'visible' => (Yii::$app->user->can("administrator")),
+            'attribute'=>'id_defect',
+            'pageSummary'=>false,
+            'editableOptions'=> function ($model, $key, $index) {
+                return [
+                    'header'=>'idmodel',
+                    'size'=>'md',
+                ];
+            }
+        ],
+        [
+            'class'=>'kartik\grid\DataColumn',
+            'visible' => (!\Yii::$app->user->can("administrator")),
+            'attribute'=>'id_defect',
+        ],
+        [
             'class' => 'kartik\grid\EditableColumn',
             'visible' => (Yii::$app->user->can("administrator")),
             'attribute' => 'active',

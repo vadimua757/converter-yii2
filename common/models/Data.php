@@ -31,6 +31,7 @@ use Yii;
  * @property integer $allweight
  * @property integer $vstweight
  * @property integer $pureweight
+ * @property integer $marzha
  */
 class Data extends \yii\db\ActiveRecord
 {
@@ -84,6 +85,7 @@ class Data extends \yii\db\ActiveRecord
             'allweight' => Yii::t('backend', 'Allweight'),
             'vstweight' => Yii::t('backend', 'Vstweight'),
             'pureweight' => Yii::t('backend', 'Pureweight'),
+            'marzha' => Yii::t('backend', 'Marzha'),
         ];
     }
     public function upload()

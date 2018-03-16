@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property string $name
+ * @property Cities[] $cities
  */
 class Cities extends \yii\db\ActiveRecord
 {

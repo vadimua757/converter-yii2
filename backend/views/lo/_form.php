@@ -10,7 +10,7 @@ use kartik\widgets\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Lo */
-/* @var $cities common\models\Lo[] */
+/* @var $cities common\models\Cities[] */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $cities array */
 

@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Lo;
+use common\models\Cities;
 use common\models\LoSearch;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -118,12 +119,14 @@ class LoController extends Controller
     public function actionCreate()
     {
         $model = new Lo();
+        $cities = Cities::tableName();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'cities' => $cities,
             ]);
         }
     }

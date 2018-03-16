@@ -18,7 +18,7 @@ class V2Search extends V2
     public function rules()
     {
         return [
-            [['id', 'idmodel', 'active'], 'integer'],
+            [['id', 'idmodel', 'active', 'id_defect'], 'integer'],
             [['name', 'display', 'korpus', 'price', 'ksh'], 'safe'],
         ];
     }

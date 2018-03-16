@@ -15,6 +15,7 @@ use Yii;
  * @property string $ksh
  * @property integer $idmodel
  * @property integer $active
+ * @property integer $id_defect
  */
 class V2 extends \yii\db\ActiveRecord
 {
@@ -33,7 +34,7 @@ class V2 extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'display', 'korpus', 'price', 'ksh'], 'required'],
-            [['idmodel', 'active'], 'integer'],
+            [['idmodel', 'active','id_defect'], 'integer'],
             [['name', 'display', 'korpus', 'price', 'ksh'], 'string', 'max' => 255],
         ];
     }
@@ -51,6 +52,7 @@ class V2 extends \yii\db\ActiveRecord
             'price' => Yii::t('backend', 'Price'),
             'ksh' => Yii::t('backend', 'Ksh'),
             'idmodel' => Yii::t('backend', 'Idmodel'),
+            'id_defect' => Yii::t('backend', 'Id defect'),
             'active' => Yii::t('backend', 'Active'),
         ];
     }

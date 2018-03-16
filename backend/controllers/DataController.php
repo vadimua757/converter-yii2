@@ -198,8 +198,10 @@ class DataController extends Controller
 //                    $newData->lo_id = $data->person;
                     $newData->amount = $data->availability;
                     $newData->np_status = $data->transfer;
-                    $newData->minprice = preg_replace("/[^\d.]/", '', $data->price_min);
-                    $newData->price = preg_replace("/[^\d.]/", '', $data->price_roz);
+                    $minprice = preg_replace("/[^\d.]/", '', $data->price_min);
+                    $newData->minprice = $minprice;
+                    $price = preg_replace("/[^\d.]/", '', $data->price_roz);
+                    $newData->price = $price;
 //                    $newData->g_download_link = $data->price_sell;
                     $newData->marketprice = preg_replace("/[^\d.]/", '', $data->price_rin);
                     $newData->display = preg_replace("/[^0-9]/", '', $data->properties->display);
@@ -213,6 +215,10 @@ class DataController extends Controller
                     $newData->model = $data->properties->model;
                     $newData->defect = $data->defect;
                     $newData->mvd = $data->mvd;
+//                    $marzha = (($price/$minprice)/$price)*100;
+//                    $newData->marzha = $marzha;
+//                    print_r(($price/$minprice)/$price*100);
+//                    die();
                     //сохраняем товар в БД
 
                     $newData->save();
@@ -247,6 +253,7 @@ class DataController extends Controller
         $searchModel = new DataSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $model = new Data();
+
         $result = Yii::$app->db->createCommand('SELECT * FROM v2')
             ->queryAll(PDO::FETCH_NUM);
         $rows = V2::find()->count();
@@ -297,18 +304,14 @@ class DataController extends Controller
 //            ->execute();
         Yii::$app->db->createCommand("UPDATE data SET ucenka = 'Y' WHERE price < minprice")
             ->execute();
-        Yii::$app->db->createCommand("DELETE FROM data WHERE price < 200 AND type = 'Tech'")
+        Yii::$app->db->createCommand("DELETE FROM data WHERE price < 200 AND type != 'silver'")
             ->execute();
         Yii::$app->db->createCommand("DELETE FROM data WHERE price < 300 AND type = 'silver'")
             ->execute();
-        Yii::$app->db->createCommand("DELETE FROM data WHERE price < 800 AND type = 'Gold'")
-            ->execute();
-        Yii::$app->db->createCommand("DELETE FROM data WHERE price < 800 AND type = 'Diamond'")
-            ->execute();
         Yii::$app->db->createCommand("DELETE FROM data WHERE  np_status = 1")
             ->execute();
-//        Yii::$app->db->createCommand("DELETE FROM data WHERE  proba < 585 AND type = 'Gold'")
-//            ->execute();
+        Yii::$app->db->createCommand("DELETE FROM data WHERE  proba < 585 AND type = 'Gold'")
+            ->execute();
 //        Yii::$app->db->createCommand("DELETE FROM data WHERE  proba < 585 AND type = 'Diamond'")
 //            ->execute();
         Yii::$app->db->createCommand("DELETE FROM data WHERE  mvd = 'Y'")
@@ -358,6 +361,7 @@ class DataController extends Controller
 
 //        Yii::$app->db->createCommand("UPDATE data SET article = TRIM(LEADING 'ДОН' FROM article)")
 //            ->execute();
+
 
 //        return $this->render('index', ['model' => $model]);
         return $this->render('index', [
@@ -418,6 +422,7 @@ class DataController extends Controller
             $bookPureweight  =  $skuArray[$i]['pureweight'];
             $bookUcenka  =  $skuArray[$i]['ucenka'];
             $bookCity  =  $skuArray[$i]['city'];
+            $bookDefect  =  $skuArray[$i]['defect'];
 
             $book = $dom->createElement('product');
 
@@ -504,6 +509,8 @@ class DataController extends Controller
             $name     = $dom->createElement('weight_pure', $bookPureweight);
             $prop->appendChild($name);
             $name     = $dom->createElement('ucenka', $bookUcenka);
+            $prop->appendChild($name);
+            $name     = $dom->createElement('defect', $bookDefect);
             $prop->appendChild($name);
             $book->appendChild($prop);
 
