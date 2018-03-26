@@ -23,9 +23,9 @@ $config = [
             'errorAction' => 'site/error',
         ],
         'request' => [
-            'baseUrl' => '/admin',
+//            'baseUrl' => '/admin',
             'cookieValidationKey' => env('BACKEND_COOKIE_VALIDATION_KEY'),
-//            'baseUrl' => env('BACKEND_BASE_URL')
+            'baseUrl' => env('BACKEND_BASE_URL')
         ],
         'user' => [
             'class' => yii\web\User::class,
@@ -36,6 +36,10 @@ $config = [
         ],
     ],
     'modules' => [
+        'dynagrid'=> [
+            'class'=>'\kartik\dynagrid\Module',
+            // other module settings
+        ],
         'gridview' =>  [
             'class' => '\kartik\grid\Module',
             // enter optional module parameters below - only if you need to

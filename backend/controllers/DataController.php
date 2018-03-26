@@ -572,8 +572,8 @@ class DataController extends Controller
         \moonland\phpexcel\Excel::export([
             'models' => Data::find()->all(),
             'columns' => [
-                'article:raw:article',
-                'lo:text:lo',
+                'article:text:article',
+                'lo:raw:lo',
             ],
         ]);
     }
