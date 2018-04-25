@@ -59,7 +59,11 @@
     "aza/thread": "1.x-dev",
     "moonlandsoft/yii2-phpexcel": "1.1.0",
     "miloschuman/yii2-highcharts-widget": "v6.0",
-    "kartik-v/yii2-dynagrid": "1.4.x-dev"
+    "kartik-v/yii2-dynagrid": "1.4.x-dev",
+    "kartik-v/yii2-slider": "v1.3.2",
+    "morozovsk/yii2-websocket": "1.0.1",
+    "sintret/yii2-chat-adminlte": "1.4.0.x-dev",
+    "bubasuma/yii2-simplechat": "v2.1.x-dev"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "^2.0.0",

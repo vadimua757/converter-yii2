@@ -3,6 +3,8 @@
 namespace backend\controllers;
 
 use common\models\Sku;
+use common\models\Valgold;
+use common\models\Valsilver;
 use Yii;
 use common\models\Data;
 use common\models\DataSearch;
@@ -196,7 +198,7 @@ class DataController extends Controller
                     $newData->ksh = $data->kcx;
                     $newData->lo = $data->stock;
 //                    $newData->lo_id = $data->person;
-                    $newData->amount = $data->availability;
+//                    $newData->amount = $data->availability;
                     $newData->np_status = $data->transfer;
                     $minprice = preg_replace("/[^\d.]/", '', $data->price_min);
                     $newData->minprice = $minprice;
@@ -215,6 +217,8 @@ class DataController extends Controller
                     $newData->model = $data->properties->model;
                     $newData->defect = $data->defect;
                     $newData->mvd = $data->mvd;
+                    $newData->category = $data->category;
+                    $newData->barcode = $data->barcode;
 //                    $marzha = (($price/$minprice)/$price)*100;
 //                    $newData->marzha = $marzha;
 //                    print_r(($price/$minprice)/$price*100);
@@ -233,10 +237,10 @@ class DataController extends Controller
 //                echo 'Сохранено товаров '.$i;
 //                $query = "SELECT * FROM v2";
 
-                Yii::$app->session->setFlash('info', [
-                    'body' => Yii::t('backend', 'Сохранено товаров '.$i),
-                    'options' => ['class' => 'alert alert-success']
-                ]);
+//                Yii::$app->session->setFlash('info', [
+//                    'body' => Yii::t('backend', 'Сохранено товаров '.$i),
+//                    'options' => ['class' => 'alert alert-success']
+//                ]);
 //                return $this->refresh();
                 return $this->render('index', [
                     'searchModel' => $searchModel,
@@ -268,7 +272,7 @@ class DataController extends Controller
 
         $resultgold = Yii::$app->db->createCommand('SELECT * FROM valgold')
             ->queryAll(PDO::FETCH_NUM);
-        $rowsg = V2::find()->count();
+        $rowsg = Valgold::find()->count();
 
         for ($i = 0 ; $i < $rowsg ; ++$i) {
             $rowg = ArrayHelper::getValue($resultgold,"$i");
@@ -286,7 +290,7 @@ class DataController extends Controller
 
         $resultsilv = Yii::$app->db->createCommand('SELECT * FROM valsilver')
             ->queryAll(PDO::FETCH_NUM);
-        $rowss = V2::find()->count();
+        $rowss = Valsilver::find()->count();
 
         for ($i = 0 ; $i < $rowss ; ++$i) {
             $rows = ArrayHelper::getValue($resultsilv,"$i");
@@ -306,9 +310,9 @@ class DataController extends Controller
             ->execute();
         Yii::$app->db->createCommand("DELETE FROM data WHERE price < 200 AND type != 'silver'")
             ->execute();
-        Yii::$app->db->createCommand("DELETE FROM data WHERE price < 300 AND type = 'silver'")
+        Yii::$app->db->createCommand("DELETE FROM data WHERE price < 150 AND type = 'silver'")
             ->execute();
-        Yii::$app->db->createCommand("DELETE FROM data WHERE  np_status = 1")
+        Yii::$app->db->createCommand("UPDATE data SET amount = 1 WHERE  np_status != 1")
             ->execute();
         Yii::$app->db->createCommand("DELETE FROM data WHERE  proba < 585 AND type = 'Gold'")
             ->execute();
@@ -317,6 +321,8 @@ class DataController extends Controller
         Yii::$app->db->createCommand("DELETE FROM data WHERE  mvd = 'Y'")
             ->execute();
         Yii::$app->db->createCommand("DELETE FROM data WHERE  lo = 900")
+            ->execute();
+        Yii::$app->db->createCommand("DELETE FROM data WHERE  category = 'Стандарт' OR category = 'Лом' AND zu != 'Годинник'")
             ->execute();
 
 
@@ -342,18 +348,17 @@ class DataController extends Controller
             ->execute();
 
 
-        $result = Yii::$app->db->createCommand('SELECT * FROM sku')
-            ->queryAll(PDO::FETCH_NUM);
-        $rows = Sku::find()->count();
-        for ($i = 0 ; $i < $rows ; ++$i) {
-            $row = ArrayHelper::getValue($result,"$i");
-            Yii::$app->db->createCommand("DELETE FROM data WHERE article = '$row[1]'")
-                ->execute();
-        }
+//        $result = Yii::$app->db->createCommand('SELECT * FROM sku')
+//            ->queryAll(PDO::FETCH_NUM);
+//        $rows = Sku::find()->count();
+//        for ($i = 0 ; $i < $rows ; ++$i) {
+//            $row = ArrayHelper::getValue($result,"$i");
+//            Yii::$app->db->createCommand("DELETE FROM data WHERE article = '$row[1]'")
+//                ->execute();
+//        }
 //        Yii::$app->db->createCommand("DELETE FROM data WHERE active = 0")
 //            ->execute();
-        Yii::$app->db->createCommand("DELETE FROM data WHERE idmodel = 0")
-            ->execute();
+
 
         // deleting doubles
         Yii::$app->db->createCommand("DELETE FROM data WHERE id NOT IN (SELECT * FROM (SELECT MIN(n.id) FROM data n GROUP BY n.article) x)")

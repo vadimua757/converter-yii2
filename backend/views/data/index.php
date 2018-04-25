@@ -1,8 +1,11 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use kartik\dynagrid\DynaGrid;
+use yii\helpers\ArrayHelper;
+use common\models\Data;
+//use kartik\slider\Slider;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\DataSearch */
@@ -51,9 +54,44 @@ $this->params['breadcrumbs'][] = $this->title;
     $columns = [
 //        ['class'=>'kartik\grid\SerialColumn', 'order'=>DynaGrid::ORDER_FIX_LEFT],
 //            'id',
-            'lo',
+        [
+            'attribute'=>'lo',
+            'vAlign'=>'middle',
+            'width'=>'auto',
+//            'value'=>function ($model, $key, $index, $widget) {
+//                return Html::a($model->author->name, '#', [
+//                    'title'=>'View author detail',
+//                    'onclick'=>'alert("This will open the author page.\n\nDisabled for this demo!")'
+//                ]);
+//            },
+            'filterType'=>GridView::FILTER_SELECT2,
+            'filter'=>ArrayHelper::map(Data::find()->orderBy('lo')->asArray()->all(), 'lo', 'lo'),
+            'filterWidgetOptions'=>[
+                'pluginOptions'=>['allowClear'=>true],
+            ],
+            'filterInputOptions'=>['placeholder'=>'All'],
+            'format'=>'raw'
+        ],
             'lo_id',
-            'city',
+//            'city',
+        [
+            'attribute'=>'city',
+            'vAlign'=>'middle',
+            'width'=>'auto',
+//            'value'=>function ($model, $key, $index, $widget) {
+//                return Html::a($model->author->name, '#', [
+//                    'title'=>'View author detail',
+//                    'onclick'=>'alert("This will open the author page.\n\nDisabled for this demo!")'
+//                ]);
+//            },
+            'filterType'=>GridView::FILTER_SELECT2,
+            'filter'=>ArrayHelper::map(Data::find()->orderBy('city')->asArray()->all(), 'city', 'city'),
+            'filterWidgetOptions'=>[
+                'pluginOptions'=>['allowClear'=>true],
+            ],
+            'filterInputOptions'=>['placeholder'=>'All cities'],
+            'format'=>'raw'
+        ],
             'article:ntext',
              'name',
              'display',
@@ -67,17 +105,91 @@ $this->params['breadcrumbs'][] = $this->title;
              'price',
              'minprice',
              'idmodel',
-             'amount',
-             'proba:ntext',
+//             'amount',
+//             'proba:ntext',
+        [
+            'attribute'=>'proba',
+            'vAlign'=>'middle',
+            'width'=>'auto',
+//            'value'=>function ($model, $key, $index, $widget) {
+//                return Html::a($model->author->name, '#', [
+//                    'title'=>'View author detail',
+//                    'onclick'=>'alert("This will open the author page.\n\nDisabled for this demo!")'
+//                ]);
+//            },
+            'filterType'=>GridView::FILTER_SELECT2,
+            'filter'=>ArrayHelper::map(Data::find()->orderBy('proba')->asArray()->all(), 'proba', 'proba'),
+            'filterWidgetOptions'=>[
+                'pluginOptions'=>['allowClear'=>true],
+            ],
+            'filterInputOptions'=>['placeholder'=>'All '],
+            'format'=>'raw'
+        ],
              'vstweight:ntext',
              'allweight:ntext',
              'pureweight:ntext',
-             'type',
-             'ucenka',
-             'active',
+//             'type',
+        [
+            'attribute'=>'type',
+            'vAlign'=>'middle',
+            'width'=>'auto',
+//            'value'=>function ($model, $key, $index, $widget) {
+//                return Html::a($model->author->name, '#', [
+//                    'title'=>'View author detail',
+//                    'onclick'=>'alert("This will open the author page.\n\nDisabled for this demo!")'
+//                ]);
+//            },
+            'filterType'=>GridView::FILTER_SELECT2,
+            'filter'=>ArrayHelper::map(Data::find()->orderBy('type')->asArray()->all(), 'type', 'type'),
+            'filterWidgetOptions'=>[
+                'pluginOptions'=>['allowClear'=>true],
+            ],
+            'filterInputOptions'=>['placeholder'=>'All '],
+            'format'=>'raw'
+        ],
+//             'ucenka',
+        [
+            'attribute'=>'ucenka',
+            'vAlign'=>'middle',
+            'width'=>'auto',
+//            'value'=>function ($model, $key, $index, $widget) {
+//                return Html::a($model->author->name, '#', [
+//                    'title'=>'View author detail',
+//                    'onclick'=>'alert("This will open the author page.\n\nDisabled for this demo!")'
+//                ]);
+//            },
+            'filterType'=>GridView::FILTER_SELECT2,
+            'filter'=>ArrayHelper::map(Data::find()->orderBy('ucenka')->asArray()->all(), 'ucenka', 'ucenka'),
+            'filterWidgetOptions'=>[
+                'pluginOptions'=>['allowClear'=>true],
+            ],
+            'filterInputOptions'=>['placeholder'=>'All '],
+            'format'=>'raw'
+        ],
+//             'active',
              'np_status',
              'mvd:ntext',
              'defect:ntext',
+//             'category',
+        [
+            'attribute'=>'category',
+            'vAlign'=>'middle',
+            'width'=>'auto',
+//            'value'=>function ($model, $key, $index, $widget) {
+//                return Html::a($model->author->name, '#', [
+//                    'title'=>'View author detail',
+//                    'onclick'=>'alert("This will open the author page.\n\nDisabled for this demo!")'
+//                ]);
+//            },
+            'filterType'=>GridView::FILTER_SELECT2,
+            'filter'=>ArrayHelper::map(Data::find()->orderBy('category')->asArray()->all(), 'category', 'category'),
+            'filterWidgetOptions'=>[
+                'pluginOptions'=>['allowClear'=>true],
+            ],
+            'filterInputOptions'=>['placeholder'=>'All '],
+            'format'=>'raw'
+        ],
+             'barcode',
 
 //            ['class' => 'yii\grid\ActionColumn'],
         ];
@@ -90,20 +202,20 @@ $dynagrid = DynaGrid::begin([
     'gridOptions'=>[
         'dataProvider'=>$dataProvider,
         'filterModel'=>$searchModel,
-        'showPageSummary'=>true,
+        'showPageSummary'=>false,
         'floatHeader'=>false,
         'pjax'=>true,
-        'responsiveWrap'=>false,
+        'responsiveWrap'=>true,
 //        'panel'=>[
 //            'heading'=>'<h3 class="panel-title"><i class="glyphicon glyphicon-book"></i>  Library</h3>',
 //            'before' =>  '<div style="padding-top: 7px;"><em>* The table header sticks to the top in this demo as you scroll</em></div>',
 //            'after' => false
 //        ],
         'toolbar' =>  [
-            ['content'=>
+//            ['content'=>
 //                Html::button('<i class="glyphicon glyphicon-plus"></i>', ['type'=>'button', 'title'=>'Add Book', 'class'=>'btn btn-success', 'onclick'=>'alert("This will launch the book creation form.\n\nDisabled for this demo!");']) . ' '.
-                Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['dynagrid-demo'], ['data-pjax'=>0, 'class' => 'btn btn-default', 'title'=>'Reset Grid'])
-            ],
+//                Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['dynagrid-demo'], ['data-pjax'=>0, 'class' => 'btn btn-default', 'title'=>'Reset Grid'])
+//            ],
             ['content'=>'{dynagridFilter}{dynagridSort}{dynagrid}'],
             '{export}',
         ]

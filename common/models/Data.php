@@ -32,6 +32,8 @@ use Yii;
  * @property integer $vstweight
  * @property integer $pureweight
  * @property integer $marzha
+ * @property integer $category
+ * @property integer $barcode
  */
 class Data extends \yii\db\ActiveRecord
 {
@@ -86,6 +88,8 @@ class Data extends \yii\db\ActiveRecord
             'vstweight' => Yii::t('backend', 'Vstweight'),
             'pureweight' => Yii::t('backend', 'Pureweight'),
             'marzha' => Yii::t('backend', 'Marzha'),
+            'category' => Yii::t('backend', 'Category'),
+            'barcode' => Yii::t('backend', 'Barcode'),
         ];
     }
     public function upload()
