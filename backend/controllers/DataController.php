@@ -268,6 +268,7 @@ class DataController extends Controller
             //    Автоматическая привязка id элемента каталога
             Yii::$app->db->createCommand("UPDATE data SET idmodel = '$row[6]' WHERE zu = '$row[1]' AND type = 'Tech'")
                 ->execute();
+
         }
 
         $resultgold = Yii::$app->db->createCommand('SELECT * FROM valgold')
@@ -280,11 +281,11 @@ class DataController extends Controller
             //    Автоматическая привязка id элемента каталога
             Yii::$app->db->createCommand("UPDATE data SET idmodel = '$rowg[5]' WHERE zu = '$rowg[1]' AND type = 'Gold'")
                 ->execute();
-            Yii::$app->db->createCommand("DELETE FROM data WHERE name = '$rowg[1]' AND allweight < '$rowg[2]' AND type = 'Gold'")
+            Yii::$app->db->createCommand("DELETE FROM data WHERE name = '$rowg[1]' AND allweight < $rowg[2] AND type = 'Gold'")
                 ->execute();
             Yii::$app->db->createCommand("UPDATE data SET idmodel = '$rowg[5]' WHERE zu = '$rowg[1]' AND type = 'Diamond'")
                 ->execute();
-            Yii::$app->db->createCommand("DELETE FROM data WHERE name = '$rowg[1]' AND allweight < '$rowg[2]' AND type = 'Diamond'")
+            Yii::$app->db->createCommand("DELETE FROM data WHERE name = '$rowg[1]' AND allweight < $rowg[2] AND type = 'Diamond'")
                 ->execute();
         }
 
@@ -298,7 +299,7 @@ class DataController extends Controller
             //    Автоматическая привязка id элемента каталога
             Yii::$app->db->createCommand("UPDATE data SET idmodel = '$rows[5]' WHERE zu = '$rows[1]' AND type = 'silver'")
                 ->execute();
-            Yii::$app->db->createCommand("DELETE FROM data WHERE name = '$rows[1]' AND allweight < '$rows[2]' AND type = 'silver'")
+            Yii::$app->db->createCommand("DELETE FROM data WHERE name = '$rows[1]' AND allweight < $rows[2] AND type = 'silver'")
                 ->execute();
         }
 
@@ -314,15 +315,17 @@ class DataController extends Controller
             ->execute();
         Yii::$app->db->createCommand("UPDATE data SET amount = 1 WHERE  np_status != 1")
             ->execute();
-        Yii::$app->db->createCommand("DELETE FROM data WHERE  proba < 585 AND type = 'Gold'")
+        Yii::$app->db->createCommand("DELETE FROM data WHERE proba < 585 AND type = 'Gold' AND zu NOT LIKE '%Годинник%'")
             ->execute();
 //        Yii::$app->db->createCommand("DELETE FROM data WHERE  proba < 585 AND type = 'Diamond'")
 //            ->execute();
-        Yii::$app->db->createCommand("DELETE FROM data WHERE  mvd = 'Y'")
+        Yii::$app->db->createCommand("DELETE FROM data WHERE mvd = 'Y'")
             ->execute();
-        Yii::$app->db->createCommand("DELETE FROM data WHERE  lo = 900")
+        Yii::$app->db->createCommand("DELETE FROM data WHERE lo = 900")
             ->execute();
-        Yii::$app->db->createCommand("DELETE FROM data WHERE  category = 'Стандарт' OR category = 'Лом' AND zu != 'Годинник'")
+        Yii::$app->db->createCommand("DELETE FROM data WHERE category = 'Лом'")
+            ->execute();
+        Yii::$app->db->createCommand("DELETE FROM data WHERE category = 'Стандарт' AND zu NOT LIKE '%Годинник%'")
             ->execute();
 
 
@@ -347,7 +350,7 @@ class DataController extends Controller
         Yii::$app->db->createCommand("DELETE FROM data WHERE idmodel = 0")
             ->execute();
 
-
+        //deleting sku`s from table sku
 //        $result = Yii::$app->db->createCommand('SELECT * FROM sku')
 //            ->queryAll(PDO::FETCH_NUM);
 //        $rows = Sku::find()->count();
