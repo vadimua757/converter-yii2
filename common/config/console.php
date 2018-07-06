@@ -1,2 +1,11 @@
 <?php
-return [];
+return [
+    'bootstrap' => ['simplechat'],
+    'modules' => [
+        'simplechat' => [
+            'class' => 'bubasuma\simplechat\Module',
+        ],
+        // ...
+    ],
+    // ...
+];

@@ -19,7 +19,7 @@ class DataSearch extends Data
     {
         return [
             [['id', 'lo', 'lo_id', 'display', 'korpus', 'ksh', 'idmodel', 'amount', 'active'], 'integer'],
-            [['city', 'article', 'name', 'zu', 'brand', 'model', 'komments', 'proba', 'vstweight', 'allweight', 'pureweight', 'type', 'ucenka', 'np_status', 'mvd', 'defect', 'category', 'barcode'], 'safe'],
+            [['city', 'article', 'name', 'zu', 'brand', 'model', 'komments', 'proba', 'vstweight', 'allweight', 'pureweight', 'type', 'ucenka', 'np_status', 'mvd', 'defect', 'category', 'barcode', 'action'], 'safe'],
             [['marketprice', 'price', 'minprice'], 'number'],
         ];
     }
@@ -65,6 +65,7 @@ class DataSearch extends Data
             'idmodel' => $this->idmodel,
             'amount' => $this->amount,
             'active' => $this->active,
+            'action' => $this->action,
         ]);
 
         $query->andFilterWhere(['like', 'city', $this->city])

@@ -63,7 +63,9 @@
     "kartik-v/yii2-slider": "v1.3.2",
     "morozovsk/yii2-websocket": "1.0.1",
     "sintret/yii2-chat-adminlte": "1.4.0.x-dev",
-    "bubasuma/yii2-simplechat": "v2.1.x-dev"
+    "bubasuma/yii2-simplechat": "v2.1.x-dev",
+    "yiisoft/yii2-twig": "2.2.0",
+    "bower-asset/twig.js" : "0.8.4@stable"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "^2.0.0",

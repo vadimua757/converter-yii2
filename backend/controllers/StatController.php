@@ -24,6 +24,7 @@ use common\models\Sold;
  */
 class StatController extends Controller
 {
+
     public function behaviors()
     {
         return [
@@ -45,8 +46,17 @@ class StatController extends Controller
         $searchModel = new DataSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        global $tmp;
+        $tech1 = Yii::$app->db->createCommand('SELECT lo, count(lo) AS total_point FROM data WHERE type = "Tech" GROUP BY lo')
+            ->queryAll(PDO::FETCH_NUM);
+
+        foreach($tech1 as $row) :
+            $tmp .= '["'.$row[0]. '", '.(int)$row[1].'],'."</br>";
+        endforeach;
+
         return $this->render('index', [
             'searchModel' => $searchModel,
+            'tmp' => $tmp,
             'dataProvider' => $dataProvider,
         ]);
     }

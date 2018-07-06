@@ -173,7 +173,7 @@ $bundle = BackendAsset::register($this);
                             ['label' => Yii::t('backend', 'Values'), 'url' => ['/values/index'], 'icon' => '<i class="fa fa-angle-double-right"></i>', 'active' => (\Yii::$app->controller->id == 'values')],
                             ['label' => Yii::t('backend', 'Valgold'), 'url' => ['/valgold/index'], 'icon' => '<i class="fa fa-angle-double-right"></i>', 'active' => (\Yii::$app->controller->id == 'valgold')],
                             ['label' => Yii::t('backend', 'Valsilver'), 'url' => ['/valsilver/index'], 'icon' => '<i class="fa fa-angle-double-right"></i>', 'active' => (\Yii::$app->controller->id == 'valsilver')],
-                            ['label' => Yii::t('backend', 'Sku'), 'url' => ['/sku/index'], 'icon' => '<i class="fa fa-angle-double-right"></i>', 'active' => (\Yii::$app->controller->id == 'sku')],
+                            ['label' => Yii::t('backend', 'Stat'), 'url' => ['/stat/index'], 'icon' => '<i class="fa fa-angle-double-right"></i>', 'active' => (\Yii::$app->controller->id == 'stat')],
                             ]
                     ],
                     [

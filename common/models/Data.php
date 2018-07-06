@@ -34,6 +34,8 @@ use Yii;
  * @property integer $marzha
  * @property integer $category
  * @property integer $barcode
+ * @property integer $chars
+ * @property integer $action
  */
 class Data extends \yii\db\ActiveRecord
 {
@@ -90,6 +92,8 @@ class Data extends \yii\db\ActiveRecord
             'marzha' => Yii::t('backend', 'Marzha'),
             'category' => Yii::t('backend', 'Category'),
             'barcode' => Yii::t('backend', 'Barcode'),
+//            'chars' => Yii::t('backend', 'Chars'),
+            'action' => Yii::t('backend', 'Action'),
         ];
     }
     public function upload()

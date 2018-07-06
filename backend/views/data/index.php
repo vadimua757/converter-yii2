@@ -166,7 +166,21 @@ $this->params['breadcrumbs'][] = $this->title;
             'filterInputOptions'=>['placeholder'=>'All '],
             'format'=>'raw'
         ],
-//             'active',
+//        [
+////            'class' => 'kartik\grid\BooleanColumn',
+//            'attribute' => 'action',
+//            'vAlign' => 'middle',
+//            'width'=>'auto',
+//            'filterType'=>GridView::FILTER_SELECT2,
+//            'filter'=>ArrayHelper::map(Data::find()->orderBy('action')->asArray()->all(), 'action', 'action'),
+//            'filterWidgetOptions'=>[
+//                'pluginOptions'=>['allowClear'=>true],
+//            ],
+//            'filterInputOptions'=>['placeholder'=>'All '],
+//            'format'=>'raw'
+//
+//        ],
+             'action',
              'np_status',
              'mvd:ntext',
              'defect:ntext',

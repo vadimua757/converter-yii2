@@ -200,6 +200,8 @@ class DataController extends Controller
 //                    $newData->lo_id = $data->person;
 //                    $newData->amount = $data->availability;
                     $newData->np_status = $data->transfer;
+//                    $newData->chars = $data->chars;
+                    $newData->action = $data->action;
                     $minprice = preg_replace("/[^\d.]/", '', $data->price_min);
                     $newData->minprice = $minprice;
                     $price = preg_replace("/[^\d.]/", '', $data->price_roz);
@@ -208,7 +210,7 @@ class DataController extends Controller
                     $newData->marketprice = preg_replace("/[^\d.]/", '', $data->price_rin);
                     $newData->display = preg_replace("/[^0-9]/", '', $data->properties->display);
                     $newData->korpus = preg_replace("/[^0-9]/", '', $data->properties->korpus);
-                    $newData->komments = $data->properties->komments;
+                    $newData->komments = $data->properties->komments . ' ' . $data->chars;
                     $newData->proba = $data->properties->sample;
                     $newData->allweight = $data->properties->weight_all;
                     $newData->vstweight = $data->properties->weight_vst;
@@ -311,7 +313,7 @@ class DataController extends Controller
             ->execute();
         Yii::$app->db->createCommand("DELETE FROM data WHERE price < 200 AND type != 'silver'")
             ->execute();
-        Yii::$app->db->createCommand("DELETE FROM data WHERE price < 150 AND type = 'silver'")
+        Yii::$app->db->createCommand("DELETE FROM data WHERE price < 300 AND type = 'silver'")
             ->execute();
         Yii::$app->db->createCommand("UPDATE data SET amount = 1 WHERE  np_status != 1")
             ->execute();
@@ -325,7 +327,7 @@ class DataController extends Controller
             ->execute();
         Yii::$app->db->createCommand("DELETE FROM data WHERE category = 'Лом'")
             ->execute();
-        Yii::$app->db->createCommand("DELETE FROM data WHERE category = 'Стандарт' AND zu NOT LIKE '%Годинник%'")
+        Yii::$app->db->createCommand("DELETE FROM data WHERE category = 'Стандарт' AND zu NOT IN ('Годинник','Годинник (ювелірний виріб)','Монета','Монета (ювелірний виріб)')")
             ->execute();
 
 
@@ -367,8 +369,11 @@ class DataController extends Controller
         Yii::$app->db->createCommand("DELETE FROM data WHERE id NOT IN (SELECT * FROM (SELECT MIN(n.id) FROM data n GROUP BY n.article) x)")
             ->execute();
 
-//        Yii::$app->db->createCommand("UPDATE data SET article = TRIM(LEADING 'ДОН' FROM article)")
-//            ->execute();
+        Yii::$app->db->createCommand("UPDATE data SET action = 'Y' WHERE action != ''")
+            ->execute();
+
+
+
 
 
 //        return $this->render('index', ['model' => $model]);
@@ -431,6 +436,7 @@ class DataController extends Controller
             $bookUcenka  =  $skuArray[$i]['ucenka'];
             $bookCity  =  $skuArray[$i]['city'];
             $bookDefect  =  $skuArray[$i]['defect'];
+            $bookAction  =  $skuArray[$i]['action'];
 
             $book = $dom->createElement('product');
 
@@ -492,6 +498,8 @@ class DataController extends Controller
             $book->appendChild($name);
             $prop = $dom->createElement('properties');
             $name     = $dom->createElement('offers_type', $bookType);
+            $prop->appendChild($name);
+            $name     = $dom->createElement('action', $bookAction);
             $prop->appendChild($name);
 
             $name     = $dom->createElement('comments',$bookKomments);
@@ -581,7 +589,7 @@ class DataController extends Controller
             'models' => Data::find()->all(),
             'columns' => [
                 'article:text:article',
-                'lo:raw:lo',
+                'lo:text:lo',
             ],
         ]);
     }
