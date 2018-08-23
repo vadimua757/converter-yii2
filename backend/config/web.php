@@ -36,6 +36,10 @@ $config = [
         ],
     ],
     'modules' => [
+        'treemanager' =>  [
+            'class' => '\kartik\tree\Module',
+            // other module settings, refer detailed documentation
+        ],
         'dynagrid'=> [
             'class'=>'\kartik\dynagrid\Module',
             // other module settings

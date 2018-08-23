@@ -181,6 +181,7 @@ return [
     'Idmodel' => 'ID моделі',
     'Ksh' => 'КСХ',
     'Active' => 'Активно',
+    'Inactive' => 'Не активно',
     'Valgold' => 'Золото',
     'Kategory' => 'Категорія',
     'From' => 'З',

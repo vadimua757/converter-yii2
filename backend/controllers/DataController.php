@@ -2,7 +2,6 @@
 
 namespace backend\controllers;
 
-use common\models\Sku;
 use common\models\Valgold;
 use common\models\Valsilver;
 use Yii;
@@ -10,7 +9,6 @@ use common\models\Data;
 use common\models\DataSearch;
 use common\models\V2;
 use common\models\Lo;
-use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -160,18 +158,10 @@ class DataController extends Controller
         $model = new Data();
 
         Yii::$app->db->createCommand()->truncateTable('data')->execute();
-        //получаем список всех жанров
-//        $types = Types::model()->findAll();
-        //ищем все сохраненные игры (их id)
-//        $existingIds = Data::model()->getExistingIds();
         $errors = array();
         $results = '';
         $inputFile =  file_get_contents(Yii::getAlias('@webroot') . '/uploads/blago.xml');
 //        $inputFile = Yii::$app->db->createCommand('SELECT url FROM config WHERE 1')
-//           ->queryOne();
-//        print_r($inputFile);
-//        die();
-//        $inputFile = implode($inputFile);
         //обработка команды
             libxml_use_internal_errors(true);
             //загружаем xml фид
@@ -191,22 +181,16 @@ class DataController extends Controller
                     //заполняем атрибуты
                     $newData->type = $data->product_type;
                     $newData->article = $data->sku;
-//                    $newData->article2 = $data->xml_id;
                     $newData->name = $data->name . ' ' . $data->properties->brand . ' ' . $data->properties->model;
                     $newData->zu = $data->name;
-//                    $newData->idmodel = $data->cml2_link;
                     $newData->ksh = $data->kcx;
                     $newData->lo = $data->stock;
-//                    $newData->lo_id = $data->person;
-//                    $newData->amount = $data->availability;
                     $newData->np_status = $data->transfer;
-//                    $newData->chars = $data->chars;
                     $newData->action = $data->action;
                     $minprice = preg_replace("/[^\d.]/", '', $data->price_min);
                     $newData->minprice = $minprice;
                     $price = preg_replace("/[^\d.]/", '', $data->price_roz);
                     $newData->price = $price;
-//                    $newData->g_download_link = $data->price_sell;
                     $newData->marketprice = preg_replace("/[^\d.]/", '', $data->price_rin);
                     $newData->display = preg_replace("/[^0-9]/", '', $data->properties->display);
                     $newData->korpus = preg_replace("/[^0-9]/", '', $data->properties->korpus);
@@ -221,10 +205,6 @@ class DataController extends Controller
                     $newData->mvd = $data->mvd;
                     $newData->category = $data->category;
                     $newData->barcode = $data->barcode;
-//                    $marzha = (($price/$minprice)/$price)*100;
-//                    $newData->marzha = $marzha;
-//                    print_r(($price/$minprice)/$price*100);
-//                    die();
                     //сохраняем товар в БД
 
                     $newData->save();
@@ -236,22 +216,11 @@ class DataController extends Controller
                     }
 
                 }
-//                echo 'Сохранено товаров '.$i;
-//                $query = "SELECT * FROM v2";
-
-//                Yii::$app->session->setFlash('info', [
-//                    'body' => Yii::t('backend', 'Сохранено товаров '.$i),
-//                    'options' => ['class' => 'alert alert-success']
-//                ]);
-//                return $this->refresh();
                 return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
                 ]);
             }
-        //показываем форму
-//        $this->render('import',
-//            array('xml'=>Yii::$app->user->xml, 'errors'=>$errors, 'results'=>$results));
     }
 
     public function actionRefactor()
@@ -347,22 +316,8 @@ class DataController extends Controller
                 ->execute();
         }
 
-//        Yii::$app->db->createCommand("DELETE FROM data WHERE active = 0")
-//            ->execute();
         Yii::$app->db->createCommand("DELETE FROM data WHERE idmodel = 0")
             ->execute();
-
-        //deleting sku`s from table sku
-//        $result = Yii::$app->db->createCommand('SELECT * FROM sku')
-//            ->queryAll(PDO::FETCH_NUM);
-//        $rows = Sku::find()->count();
-//        for ($i = 0 ; $i < $rows ; ++$i) {
-//            $row = ArrayHelper::getValue($result,"$i");
-//            Yii::$app->db->createCommand("DELETE FROM data WHERE article = '$row[1]'")
-//                ->execute();
-//        }
-//        Yii::$app->db->createCommand("DELETE FROM data WHERE active = 0")
-//            ->execute();
 
 
         // deleting doubles
@@ -385,15 +340,6 @@ class DataController extends Controller
 
     public function actionExport(){
         $skuArray = Yii::$app->db->createCommand('SELECT * FROM data')->queryAll();
-//        $skuArray = (new \yii\db\Query())
-//            ->select(['*'])
-//            ->from('data')
-//            ->limit(10);
-
-//        var_dump($skuArray);
-//        die();
-
-//        $skuArray = array();
 
         $filePath = 'uploads/sku.xml';
 
@@ -570,7 +516,7 @@ class DataController extends Controller
 
         Yii::$app->db->createCommand()->batchInsert(Sold::tableName(), $model->attributes(), $data)->execute();
 
-        Yii::$app->db->createCommand("DELETE FROM sold WHERE sku IN (SELECT article FROM data)")
+        Yii::$app->db->createCommand("DELETE FROM sold WHERE sku NOT IN (SELECT article FROM data)")
             ->execute();
 
 //        $data = Yii::$app->db->createCommand("SELECT sku FROM sold")
@@ -593,5 +539,6 @@ class DataController extends Controller
             ],
         ]);
     }
+
 }
 

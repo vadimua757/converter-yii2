@@ -65,7 +65,8 @@
     "sintret/yii2-chat-adminlte": "1.4.0.x-dev",
     "bubasuma/yii2-simplechat": "v2.1.x-dev",
     "yiisoft/yii2-twig": "2.2.0",
-    "bower-asset/twig.js" : "0.8.4@stable"
+    "bower-asset/twig.js" : "0.8.4@stable",
+    "kartik-v/yii2-tree-manager": "1.0.x-dev"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "^2.0.0",

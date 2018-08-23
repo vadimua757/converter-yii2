@@ -161,6 +161,29 @@ $bundle = BackendAsset::register($this);
                         ]
                     ],
                     [
+                        'label' => Yii::t('backend', 'Shop'),
+                        'options' => ['class' => 'header']
+                    ],
+                    [
+                        'label' => Yii::t('backend', 'Shop'),
+                        'url' => '#',
+                        'icon' => '<i class="fa fa-cart-plus"></i>',
+                        'options' => ['class' => 'treeview'],
+                        'active' => in_array(\Yii::$app->controller->id,['products','products-category','manufacturers']),
+                        'items' => [
+                            ['label' => Yii::t('backend', 'Products'), 'url' => ['/products/index'], 'icon' => '<i class="fa fa-angle-double-right"></i>', 'active' => (\Yii::$app->controller->id == 'page')],
+                            ['label' => Yii::t('backend', 'Categories'), 'url' => ['/products-category/index'], 'icon' => '<i class="fa fa-angle-double-right"></i>', 'active' => (\Yii::$app->controller->id == 'article')],
+                            ['label' => Yii::t('backend', 'Manufacturers'), 'url' => ['/manufacturers/index'], 'icon' => '<i class="fa fa-angle-double-right"></i>', 'active' => (\Yii::$app->controller->id == 'article-category')],
+//                            ['label' => Yii::t('backend', 'Text Widgets'), 'url' => ['/widget-text/index'], 'icon' => '<i class="fa fa-angle-double-right"></i>', 'active' => (\Yii::$app->controller->id == 'widget-text')],
+//                            ['label' => Yii::t('backend', 'Menu Widgets'), 'url' => ['/widget-menu/index'], 'icon' => '<i class="fa fa-angle-double-right"></i>', 'active' => (\Yii::$app->controller->id == 'widget-menu')],
+//                            ['label' => Yii::t('backend', 'Carousel Widgets'), 'url' => ['/widget-carousel/index'], 'icon' => '<i class="fa fa-angle-double-right"></i>', 'active' => (\Yii::$app->controller->id == 'widget-carousel')],
+                        ]
+                    ],
+                    [
+                        'label' => Yii::t('backend', 'Converter'),
+                        'options' => ['class' => 'header']
+                    ],
+                    [
                         'label' => Yii::t('backend', 'Directory'),
                         'url' => '#',
                         'icon' => '<i class="fa fa-bars"></i>',
