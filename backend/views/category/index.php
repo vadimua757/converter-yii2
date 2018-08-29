@@ -25,6 +25,13 @@ echo TreeView::widget([
         'enableCache' => false   // defaults to true
     ],
     'showInactive' => true,
+    'nodeAddlViews' => [
+        Module::VIEW_PART_1 => '',
+//        Module::VIEW_PART_2 => '@app/views/category/upload',
+        Module::VIEW_PART_3 => '',
+        Module::VIEW_PART_4 => '',
+        Module::VIEW_PART_5 => '',
+    ]
 //    'nodeAddlViews' => [
 //    Module::VIEW_PART_2 => '@app/views/category/upload_form',
 //]Views' => [

@@ -189,7 +189,9 @@ echo Html::hiddenInput('treeMoveHash', $security->hashData($dataToHash, $module-
 //        ->hint(Yii::t('backend', 'If you\'ll leave this field empty, slug will be generated automatically'))
         ->textInput(['maxlength' => true]);
 
-
+    $picture = $form->field($node, 'picture')->widget(\trntv\filekit\widget\Upload::className(), [
+        'url'=>['./../category/picture-upload'],
+    ]);
 
     /**
      * initialize for create or update
@@ -285,15 +287,17 @@ echo Html::hiddenInput('treeMoveHash', $security->hashData($dataToHash, $module-
     <?php if ($iconsList == 'text' || $iconsList == 'none'): ?>
         <?php if ($showIDAttribute && $showNameAttribute): ?>
             <div class="row">
-                <div class="col-sm-2">
-                    <?= $keyField ?>
-                </div>
-                <div class="col-sm-6">
-                    <?= $nameField ?>
-                </div>
-                <div class="col-sm-4">
-                    <?= $slug ?>
-                </div>
+            <div class="col-md-8">
+    <!--                <div class="col-sm-2">-->
+    <!--                    --><?//= $keyField ?>
+    <!--                </div>-->
+            <div class="row">
+                    <div class="col-sm-8">
+                        <?= $nameField ?>
+                    </div>
+                    <div class="col-sm-4">
+                        <?= $slug ?>
+                    </div>
             </div>
         <?php else: ?>
             <?= $keyField ?>
@@ -301,17 +305,29 @@ echo Html::hiddenInput('treeMoveHash', $security->hashData($dataToHash, $module-
         <?php endif; ?>
         <?php if ($iconsList === 'text'): ?>
             <div class="row">
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <?= $form->field($node, $iconTypeAttribute)->dropdownList([
                         TreeView::ICON_CSS => 'CSS Suffix',
                         TreeView::ICON_RAW => 'Raw Markup',
                     ], $inputOpts) ?>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     <?= $form->field($node, $iconAttribute)->textInput($inputOpts) ?>
                 </div>
+                <!--                <div class="col-sm-4">-->
+                <!--                    --><?//= $picture ?>
+                <!--                </div>-->
 
             </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-sm-4">
+                    <?= $picture ?>
+                </div>
+            </div>
+            </div>
+
+
         <?php endif; ?>
     <?php else: ?>
         <div class="row">
@@ -347,9 +363,6 @@ echo Html::hiddenInput('treeMoveHash', $security->hashData($dataToHash, $module-
     echo $form->field($node, 'description')->widget(CKEditorWidget::className(), [
         'options' => ['rows' => 4],
         'preset' => CKEditorPresets::STANDART
-    ]);
-    echo $form->field($node, 'picture')->widget(\trntv\filekit\widget\Upload::className(), [
-        'url'=>['./../category/picture-upload'],
     ]);
     ?>
     <?= $renderContent(Module::VIEW_PART_2) ?>

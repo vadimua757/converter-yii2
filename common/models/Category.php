@@ -11,6 +11,7 @@ use Yii;
 use yii\db\ActiveRecord;
 use kartik\tree\models\TreeTrait;
 use kartik\tree\TreeView;
+use kartik\tree\models\Tree;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use creocoder\nestedsets\NestedSetsBehavior;
@@ -26,16 +27,17 @@ use yii\behaviors\BlameableBehavior;
  * @property string $slug
  * @property string $base_url
  * @property string $path
- * @property string $file
+ * @property string $picture
+ * @property string $Category
  *
  */
 
-class Category extends \kartik\tree\models\Tree
+class Category extends Tree
 {
     /**
      * @var
      */
-    public $file;
+    public $picture;
 
     /**
      * @inheritdoc
@@ -55,9 +57,7 @@ class Category extends \kartik\tree\models\Tree
         $rules = parent::rules();
         $rules[] = ['slug', 'safe'];
         $rules[] = ['description', 'safe'];
-        $rules[] = ['file', 'safe'];
-        $rules[] = ['base_url', 'safe'];
-        $rules[] = ['path', 'safe'];
+        $rules[] = ['picture', 'safe'];
         return $rules;
     }
 
@@ -66,19 +66,20 @@ class Category extends \kartik\tree\models\Tree
         $behaviors = parent::behaviors();
         $behaviors [] =
             [
+                'class' => UploadBehavior::className(),
+                'attribute' => 'picture',
+                'pathAttribute' => 'path',
+                'baseUrlAttribute' => 'base_url',
+            ];
+        $behaviors [] =
+            [
                 'class' => SluggableBehavior::className(),
                 'attribute' => 'name',
                 'immutable' => true
-            ];
-            [
-                'class' => UploadBehavior::className(),
-                'attribute' => 'picture',
-                'pathAttribute' => 'thumbnail_path',
-                'baseUrlAttribute' => 'thumbnail_base_url'
-            ];
+             ];
+
         return $behaviors;
     }
-
 
 //    public function isDisabled()
 //    {
