@@ -27,6 +27,7 @@ use yii\helpers\Url;
  * @property int $created_at
  * @property int $updated_at
  * @property string $picture
+ * @property string $Manufacturers
  *
  * @property User $createdBy
  * @property User $updatedBy

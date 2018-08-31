@@ -73,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'format'=>'raw'
         ],
         'quantity',
-//            'city',
+            'category_id',
 //        [
 //            'attribute'=>'city',
 //            'vAlign'=>'middle',
@@ -205,7 +205,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //        ],
 //        'barcode',
 
-//            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn'],
     ];
 
 $dynagrid = DynaGrid::begin([

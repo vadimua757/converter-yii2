@@ -286,7 +286,7 @@ class DataController extends Controller
             ->execute();
         Yii::$app->db->createCommand("UPDATE data SET amount = 1 WHERE  np_status != 1")
             ->execute();
-        Yii::$app->db->createCommand("DELETE FROM data WHERE proba < 585 AND type = 'Gold' AND zu NOT LIKE '%Годинник%'")
+        Yii::$app->db->createCommand("DELETE FROM data WHERE proba < 385 AND type = 'Gold' AND zu NOT LIKE '%Годинник%'")
             ->execute();
 //        Yii::$app->db->createCommand("DELETE FROM data WHERE  proba < 585 AND type = 'Diamond'")
 //            ->execute();
